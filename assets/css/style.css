@@ -5436,14 +5436,14 @@ a.text-theme:hover,
 .hero-layout1 {
   background-size: cover;
   position: relative;
-  padding-top: 270px;
+  padding-top: 370px;
   padding-bottom: 270px;
   max-height: 790px;
   z-index: 1;
 }
 .hero-layout1 .overlay {
   background: rgb(15, 57, 59);
-  background: linear-gradient(90deg, rgb(15, 57, 59) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, rgb(5, 24, 25) 0%, rgba(11, 11, 11, 0) 100%);
   z-index: -1;
 }
 .hero-layout1 .hero-title {
@@ -5838,6 +5838,8 @@ a.text-theme:hover,
 .img-box1 .img-2 {
   position: relative;
   z-index: 0;
+  border-radius:10px;
+   margin-top:50px;
 }
 .img-box1 .img-3 {
   position: absolute;

@@ -7155,6 +7155,7 @@ fieldset:disabled .btn {
 }
 
 .w-100 {
+   border-radius:75px;
    width: 100% !important
 }
 
