@@ -872,11 +872,11 @@ textarea::placeholder {
   padding-top: 40px;
   display: block;
   text-align: center;
-  background-color: var(--sec-color);
+  background-color: var(--dark-color);
 }
 .vs-menu-wrapper .mobile-logo img,
 .vs-menu-wrapper .mobile-logo svg {
-  max-width: 190px;
+  max-width: 128px;
 }
 .vs-menu-wrapper .vs-menu-toggle {
   border: none;
@@ -903,7 +903,7 @@ textarea::placeholder {
 .vs-menu-wrapper .vs-menu-area {
   width: 100%;
   max-width: 310px;
-  background-color: #fff;
+  background-color: var(--dark-color);
   border-right: 3px solid var(--title-color);
   height: 100%;
   position: relative;
@@ -924,7 +924,7 @@ textarea::placeholder {
 }
 
 .vs-mobile-menu {
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: calc(100vh - 200px);
   padding-bottom: 40px;
   margin-top: 33px;
@@ -955,7 +955,7 @@ textarea::placeholder {
   line-height: 1;
   font-size: 16px;
   text-transform: capitalize;
-  color: var(--title-color);
+  color: var(--sec-color);
 }
 .vs-mobile-menu ul li a:before {
   content: "\f105";
@@ -3252,12 +3252,16 @@ a.text-theme:hover,
   margin-top: -10px;
 }
 
+.footer-logo img{
+  width:128px;
+}
+
 .footer-text {
   max-width: 290px;
   color: var(--white-color);
   font-size: 15px;
   font-weight: 500;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .footer-info {
@@ -3481,6 +3485,11 @@ a.text-theme:hover,
 .header-layout2 .vs-logo {
   top: 0;
 }
+
+.header-layout2 .vs-logo img{
+  width:160px;
+}
+
 .header-layout2 .header-btns {
   top: 0;
   margin-left: 0;
@@ -8262,18 +8271,18 @@ a.text-theme:hover,
 .accomodation-layout1 .testi-body .testi-name a:hover {
   color: var(--theme-color);
 }
-.accomodation-layout1 .testi-body .testi-name::after {
+/*.accomodation-layout1 .testi-body .testi-name::after {
   content: "";
   position: absolute;
-  right: -15%;
+  right: -20%;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   background-color: var(--title-color);
-  /* Large devices */
-}
+  /* Large devices 
+}*/
 @media (max-width: 1199px) {
   .accomodation-layout1 .testi-body .testi-name::after {
     display: none;
@@ -8286,9 +8295,9 @@ a.text-theme:hover,
 }
 .accomodation-layout1 .testi-body .testi-content {
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   right: 0;
-  padding: 60px 142px 60px 50px;
+  padding: 30px 102px 30px 20px;
   display: inline-block;
   background-color: var(--sec-color);
   border-bottom: 4px solid var(--white-color);
