@@ -1,765 +1,1072 @@
-(function ($) {
-  "use strict";
-  /*=================================
-      JS Index Here
-  ==================================*/
-  /*
-    01. On Load Function
-    02. Preloader
-    03. Mobile Menu Active
-    04. Sticky fix
-    05. Scroll To Top
-    06. Set Background Image
-    07. Global Slider
-    08. Ajax Contact Form
-    9. Popup Sidemenu   
-    10. Magnific Popup
-    11. Section Position
-    12. Custom Tab
-    13. Testimonial Nav
-    14. Team Toggle
-    15. isotop
-    16. package tab
-  */
-  /*=================================
-      JS Index End
-  ==================================*/
-  /*
+/*----------------------------------------------
+*
+* [Main Scripts]
+*
+* Theme    : Leverage
+* Version  : 2.1
+* Author   : Codings
+* Support  : codings.dev
+* 
+----------------------------------------------*/
 
-  /*---------- 01. On Load Function ----------*/
-  $(window).on("load", function () {
-    $(".preloader").fadeOut();
-  });
+/*----------------------------------------------
 
-  /*---------- 02. Preloader ----------*/
-  if ($(".preloader").length > 0) {
-    $(".preloaderCls").each(function () {
-      $(this).on("click", function (e) {
-        e.preventDefault();
-        $(".preloader").css("display", "none");
-      });
-    });
-  }
+[ALL CONTENTS]
 
-  /*---------- 03. Mobile Menu Active ----------*/
-  $.fn.vsmobilemenu = function (options) {
-    var opt = $.extend(
-      {
-        menuToggleBtn: ".vs-menu-toggle",
-        bodyToggleClass: "vs-body-visible",
-        subMenuClass: "vs-submenu",
-        subMenuParent: "vs-item-has-children",
-        subMenuParentToggle: "vs-active",
-        meanExpandClass: "vs-mean-expand",
-        appendElement: '<span class="vs-mean-expand"></span>',
-        subMenuToggleClass: "vs-open",
-        toggleSpeed: 400,
-      },
-      options
-    );
+1. Preloader
+2. Responsive Menu
+3. Navigation 
+4. Slides 
+5. Particles
+6. Progress Bar
+7. Shuffle
+8. Sign and Register Form
+9. Multi-Step Form 
+10. Simple Form
+11. Recaptcha
+12. Cookie Notice
 
-    return this.each(function () {
-      var menu = $(this); // Select menu
+----------------------------------------------*/
 
-      // Menu Show & Hide
-      function menuToggle() {
-        menu.toggleClass(opt.bodyToggleClass);
+/*----------------------------------------------
+1. Preloader
+----------------------------------------------*/
 
-        // collapse submenu on menu hide or show
-        var subMenu = "." + opt.subMenuClass;
-        $(subMenu).each(function () {
-          if ($(this).hasClass(opt.subMenuToggleClass)) {
-            $(this).removeClass(opt.subMenuToggleClass);
-            $(this).css("display", "none");
-            $(this).parent().removeClass(opt.subMenuParentToggle);
-          }
-        });
-      }
+jQuery(function ($) {
 
-      // Class Set Up for every submenu
-      menu.find("li").each(function () {
-        var submenu = $(this).find("ul");
-        submenu.addClass(opt.subMenuClass);
-        submenu.css("display", "none");
-        submenu.parent().addClass(opt.subMenuParent);
-        submenu.prev("a").append(opt.appendElement);
-        submenu.next("a").append(opt.appendElement);
-      });
+    'use strict';
 
-      // Toggle Submenu
-      function toggleDropDown($element) {
-        if ($($element).next("ul").length > 0) {
-          $($element).parent().toggleClass(opt.subMenuParentToggle);
-          $($element).next("ul").slideToggle(opt.toggleSpeed);
-          $($element).next("ul").toggleClass(opt.subMenuToggleClass);
-        } else if ($($element).prev("ul").length > 0) {
-          $($element).parent().toggleClass(opt.subMenuParentToggle);
-          $($element).prev("ul").slideToggle(opt.toggleSpeed);
-          $($element).prev("ul").toggleClass(opt.subMenuToggleClass);
-        }
-      }
+    let preloader = $('.preloader');
 
-      // Submenu toggle Button
-      var expandToggler = "." + opt.meanExpandClass;
-      $(expandToggler).each(function () {
-        $(this).on("click", function (e) {
-          e.preventDefault();
-          toggleDropDown($(this).parent());
-        });
-      });
+    setTimeout(function() {
+        preloader.addClass('ready');
+        
+    }, preloader.data('timeout'))
+})
 
-      // Menu Show & Hide On Toggle Btn click
-      $(opt.menuToggleBtn).each(function () {
-        $(this).on("click", function () {
-          menuToggle();
-        });
-      });
+/*----------------------------------------------
+2. Responsive Menu
+----------------------------------------------*/
 
-      // Hide Menu On out side click
-      menu.on("click", function (e) {
-        e.stopPropagation();
-        menuToggle();
-      });
+jQuery(function ($) {
 
-      // Stop Hide full menu on menu click
-      menu.find("div").on("click", function (e) {
-        e.stopPropagation();
-      });
-    });
-  };
+    'use strict';
 
-  $(".vs-menu-wrapper").vsmobilemenu();
+    function navResponsive() {
 
-  /*---------- 04. Sticky fix ----------*/
-  var lastScrollTop = "";
-  var scrollToTopBtn = ".scrollToTop";
+        let navbar = $('.navbar .items');
+        let menu = $('#menu .items');
 
-  function stickyMenu($targetMenu, $toggleClass, $parentClass) {
-    var st = $(window).scrollTop();
-    var height = $targetMenu.css("height");
-    $targetMenu.parent().css("min-height", height);
-    if ($(window).scrollTop() > 800) {
-      $targetMenu.parent().addClass($parentClass);
+        menu.html('');
+        navbar.clone().appendTo(menu);
 
-      if (st > lastScrollTop) {
-        $targetMenu.removeClass($toggleClass);
-      } else {
-        $targetMenu.addClass($toggleClass);
-      }
-    } else {
-      $targetMenu.parent().css("min-height", "").removeClass($parentClass);
-      $targetMenu.removeClass($toggleClass);
-    }
-    lastScrollTop = st;
-  }
-  $(window).on("scroll", function () {
-    stickyMenu($(".sticky-active"), "active", "will-sticky");
-    if ($(this).scrollTop() > 500) {
-      $(scrollToTopBtn).addClass("show");
-    } else {
-      $(scrollToTopBtn).removeClass("show");
-    }
-  });
+        $('.menu .icon-arrow-right').removeClass('icon-arrow-right').addClass('icon-arrow-down');
 
-  /*---------- 05. Scroll To Top ----------*/
-  $(scrollToTopBtn).each(function () {
-    $(this).on("click", function (e) {
-      e.preventDefault();
-      $("html, body").animate(
-        {
-          scrollTop: 0,
-        },
-        lastScrollTop / 3
-      );
-      return false;
-    });
-  });
-
-  /*---------- 06.Set Background Image ----------*/
-  if ($("[data-bg-src]").length > 0) {
-    $("[data-bg-src]").each(function () {
-      var src = $(this).attr("data-bg-src");
-      $(this).css("background-image", "url(" + src + ")");
-      $(this).removeAttr("data-bg-src").addClass("background-image");
-    });
-  }
-
-  /*----------- 07. Global Slider ----------*/
-  $(".vs-carousel").each(function () {
-    var asSlide = $(this);
-
-    // Collect Data
-    function d(data) {
-      return asSlide.data(data);
-    }
-
-    // Custom Arrow Button
-    var prevButton =
-        '<button type="button" class="slick-prev"><i class="' +
-        d("prev-arrow") +
-        '"></i></button>',
-      nextButton =
-        '<button type="button" class="slick-next"><i class="' +
-        d("next-arrow") +
-        '"></i></button>';
-
-    // Function For Custom Arrow Btn
-    $("[data-slick-next]").each(function () {
-      $(this).on("click", function (e) {
-        e.preventDefault();
-        $($(this).data("slick-next")).slick("slickNext");
-      });
-    });
-
-    $("[data-slick-prev]").each(function () {
-      $(this).on("click", function (e) {
-        e.preventDefault();
-        $($(this).data("slick-prev")).slick("slickPrev");
-      });
-    });
-
-    // Check for arrow wrapper
-    if (d("arrows") == true) {
-      if (!asSlide.closest(".arrow-wrap").length) {
-        asSlide.closest(".container").parent().addClass("arrow-wrap");
-      }
-    }
-
-    asSlide.slick({
-      dots: d("dots") ? true : false,
-      fade: d("fade") ? true : false,
-      arrows: d("arrows") ? true : false,
-      speed: d("speed") ? d("speed") : 1000,
-      asNavFor: d("asnavfor") ? d("asnavfor") : false,
-      autoplay: d("autoplay") == false ? false : true,
-      infinite: d("infinite") == false ? false : true,
-      slidesToShow: d("slide-show") ? d("slide-show") : 1,
-      adaptiveHeight: d("adaptive-height") ? true : false,
-      centerMode: d("center-mode") ? true : false,
-      autoplaySpeed: d("autoplay-speed") ? d("autoplay-speed") : 2000,
-      centerPadding: d("center-padding") ? d("center-padding") : "0",
-      focusOnSelect: d("focuson-select") ? true : false,
-      pauseOnFocus: d("pauseon-focus") ? true : false,
-      pauseOnHover: d("pauseon-hover") ? true : false,
-      variableWidth: d("variable-width") ? true : false,
-      vertical: d("vertical") ? true : false,
-      verticalSwiping: d("vertical") ? true : false,
-      prevArrow: d("prev-arrow")
-        ? prevButton
-        : '<button type="button" class="slick-prev"><i class="fas fa-chevron-left"></i></i></button>',
-      nextArrow: d("next-arrow")
-        ? nextButton
-        : '<button type="button" class="slick-next"><i class="fas fa-chevron-right"></i></button>',
-      rtl: $("html").attr("dir") == "rtl" ? true : false,
-      responsive: [
-        {
-          breakpoint: 1600,
-          settings: {
-            arrows: d("xl-arrows") ? true : false,
-            dots: d("xl-dots") ? true : false,
-            slidesToShow: d("xl-slide-show")
-              ? d("xl-slide-show")
-              : d("slide-show"),
-            centerMode: d("xl-center-mode") ? true : false,
-            centerPadding: 0,
-          },
-        },
-        {
-          breakpoint: 1400,
-          settings: {
-            arrows: d("ml-arrows") ? true : false,
-            dots: d("ml-dots") ? true : false,
-            slidesToShow: d("ml-slide-show")
-              ? d("ml-slide-show")
-              : d("slide-show"),
-            centerMode: d("ml-center-mode") ? true : false,
-            centerPadding: 0,
-          },
-        },
-        {
-          breakpoint: 1200,
-          settings: {
-            arrows: d("lg-arrows") ? true : false,
-            dots: d("lg-dots") ? true : false,
-            slidesToShow: d("lg-slide-show")
-              ? d("lg-slide-show")
-              : d("slide-show"),
-            centerMode: d("lg-center-mode") ? d("lg-center-mode") : false,
-            centerPadding: 0,
-          },
-        },
-        {
-          breakpoint: 992,
-          settings: {
-            arrows: d("md-arrows") ? true : false,
-            dots: d("md-dots") ? true : false,
-            slidesToShow: d("md-slide-show") ? d("md-slide-show") : 1,
-            centerMode: d("md-center-mode") ? d("md-center-mode") : false,
-            centerPadding: 0,
-          },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            arrows: d("sm-arrows") ? true : false,
-            dots: d("sm-dots") ? true : false,
-            slidesToShow: d("sm-slide-show") ? d("sm-slide-show") : 1,
-            centerMode: d("sm-center-mode") ? d("sm-center-mode") : false,
-            centerPadding: 0,
-          },
-        },
-        {
-          breakpoint: 576,
-          settings: {
-            arrows: d("xs-arrows") ? true : false,
-            dots: d("xs-dots") ? true : false,
-            slidesToShow: d("xs-slide-show") ? d("xs-slide-show") : 1,
-            centerMode: d("xs-center-mode") ? d("xs-center-mode") : false,
-            centerPadding: 0,
-          },
-        },
-        // You can unslick at a given breakpoint now by adding:
-        // settings: "unslick"
-        // instead of a settings object
-      ],
-    });
-  });
-
-  /*----------- 08. Ajax Contact Form ----------*/
-  var form = ".ajax-contact";
-  var invalidCls = "is-invalid";
-  var $email = '[name="email"]';
-  var $validation =
-    '[name="name"],[name="email"],[name="number"],[name="message"]'; // Must be use (,) without any space
-  var formMessages = $(form).find(".form-messages");
-
-  function sendContact() {
-    var formData = $(form).serialize();
-    var valid;
-    valid = validateContact();
-    if (valid) {
-      jQuery
-        .ajax({
-          url: $(form).attr("action"),
-          data: formData,
-          type: "POST",
+        $('.menu .nav-item.dropdown').each(function() {
+            let children = $(this).children('.nav-link');
+            children.addClass('prevent');
         })
-        .done(function (response) {
-          // Make sure that the formMessages div has the 'success' class.
-          formMessages.removeClass("error");
-          formMessages.addClass("success");
-          // Set the message text.
-          formMessages.text(response);
-          // Clear the form.
-          $(form + ' input:not([type="submit"]),' + form + " textarea").val("");
-        })
-        .fail(function (data) {
-          // Make sure that the formMessages div has the 'error' class.
-          formMessages.removeClass("success");
-          formMessages.addClass("error");
-          // Set the message text.
-          if (data.responseText !== "") {
-            formMessages.html(data.responseText);
-          } else {
-            formMessages.html(
-              "Oops! An error occured and your message could not be sent."
-            );
-          }
-        });
     }
-  }
 
-  function validateContact() {
-    var valid = true;
-    var formInput;
+    navResponsive();
 
-    function unvalid($validation) {
-      $validation = $validation.split(",");
-      for (var i = 0; i < $validation.length; i++) {
-        formInput = form + " " + $validation[i];
-        if (!$(formInput).val()) {
-          $(formInput).addClass(invalidCls);
-          valid = false;
-        } else {
-          $(formInput).removeClass(invalidCls);
-          valid = true;
-        }
-      }
-    }
-    unvalid($validation);
-
-    if (
-      !$($email).val() ||
-      !$($email)
-        .val()
-        .match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)
-    ) {
-      $($email).addClass(invalidCls);
-      valid = false;
-    } else {
-      $($email).removeClass(invalidCls);
-      valid = true;
-    }
-    return valid;
-  }
-
-  $(form).on("submit", function (element) {
-    element.preventDefault();
-    sendContact();
-  });
-
-  /*---------- 9. Popup Sidemenu ----------*/
-  function popupSideMenu($sideMenu, $sideMunuOpen, $sideMenuCls, $toggleCls) {
-    // Sidebar Popup
-    $($sideMunuOpen).on("click", function (e) {
-      e.preventDefault();
-      $($sideMenu).addClass($toggleCls);
-    });
-    $($sideMenu).on("click", function (e) {
-      e.stopPropagation();
-      $($sideMenu).removeClass($toggleCls);
-    });
-    var sideMenuChild = $sideMenu + " > div";
-    $(sideMenuChild).on("click", function (e) {
-      e.stopPropagation();
-      $($sideMenu).addClass($toggleCls);
-    });
-    $($sideMenuCls).on("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      $($sideMenu).removeClass($toggleCls);
-    });
-  }
-  popupSideMenu(
-    ".sidemenu-wrapper",
-    ".sideMenuToggler",
-    ".sideMenuCls",
-    "show"
-  );
-
-  /*----------- 10. Magnific Popup ----------*/
-  /* magnificPopup img view */
-  $(".popup-image").magnificPopup({
-    type: "image",
-    gallery: {
-      enabled: true,
-    },
-  });
-
-  /*----------- 11. magnificPopup video view ----------*/
-  $(".popup-video").magnificPopup({
-    type: "iframe",
-  });
-
-  /*---------- 12. Section Position ----------*/
-  // Interger Converter
-  function convertInteger(str) {
-    return parseInt(str, 10);
-  }
-
-  $.fn.sectionPosition = function (mainAttr, posAttr) {
-    $(this).each(function () {
-      var section = $(this);
-
-      function setPosition() {
-        var sectionHeight = Math.floor(section.height() / 2), // Main Height of section
-          posData = section.attr(mainAttr), // where to position
-          posFor = section.attr(posAttr), // On Which section is for positioning
-          topMark = "top-half", // Pos top
-          bottomMark = "bottom-half", // Pos Bottom
-          parentPT = convertInteger($(posFor).css("padding-top")), // Default Padding of  parent
-          parentPB = convertInteger($(posFor).css("padding-bottom")); // Default Padding of  parent
-
-        if (posData === topMark) {
-          $(posFor).css("padding-bottom", parentPB + sectionHeight + "px");
-          section.css("margin-top", "-" + sectionHeight + "px");
-        } else if (posData === bottomMark) {
-          $(posFor).css("padding-top", parentPT + sectionHeight + "px");
-          section.css("margin-bottom", "-" + sectionHeight + "px");
-        }
-      }
-      setPosition();
-    });
-  };
-
-  var postionHandler = "[data-sec-pos]";
-  if ($(postionHandler).length) {
-    $(postionHandler).sectionPosition("data-sec-pos", "data-pos-for");
-  }
-
-  /*----------- 13. Custom Tab  ----------*/
-  $.fn.vsTab = function (options) {
-    var opt = $.extend(
-      {
-        sliderTab: false,
-        tabButton: "button",
-        indicator: false,
-      },
-      options
-    );
-
-    $(this).each(function () {
-      var $menu = $(this);
-      var $button = $menu.find(opt.tabButton);
-
-      // On Click Button Class Remove and indecator postion set
-      $button.on("click", function (e) {
-        e.preventDefault();
-        var cBtn = $(this);
-        cBtn.addClass("active").siblings().removeClass("active");
-        if (opt.sliderTab) {
-          $(slider).slick("slickGoTo", cBtn.data("slide-go-to"));
-        }
-      });
-
-      // Work With slider
-      if (opt.sliderTab) {
-        var slider = $menu.data("asnavfor"); // select slider
-
-        // Select All button and set attribute
-        var i = 0;
-        $button.each(function () {
-          var slideBtn = $(this);
-          slideBtn.attr("data-slide-go-to", i);
-          i++;
-
-          // Active Slide On load > Actived Button
-          if (slideBtn.hasClass("active")) {
-            $(slider).slick("slickGoTo", slideBtn.data("slide-go-to"));
-          }
-
-          // Change Indicator On slide Change
-          $(slider).on(
-            "beforeChange",
-            function (event, slick, currentSlide, nextSlide) {
-              $menu
-                .find(opt.tabButton + '[data-slide-go-to="' + nextSlide + '"]')
-                .addClass("active")
-                .siblings()
-                .removeClass("active");
-            }
-          );
-        });
-      }
-    });
-  };
-
-  /*----------- 14. Testimonial Nav  ----------*/
-  $(".testi-nav").each(function () {
-    var tabBtnIndex = 0;
-    $(this)
-      .find(".tab-btn")
-      .each(function () {
-        var btnCurrent = $(this);
-        btnCurrent.attr("data-goto", tabBtnIndex);
-        tabBtnIndex++;
-        btnCurrent.on("click", function () {
-          $("#testislide2").slick("slickGoTo", btnCurrent.data("goto"));
-        });
-      });
-  });
-
-  var testiSlide = $("#testislide2");
-  testiSlide
-    .on("init", function (event, slick, currentSlide) {
-      var cur = $(slick.$slides[slick.currentSlide]);
-      var currentIndex = cur.data("slick-index");
-      var prevIndex = cur.prev().data("slick-index");
-      var nextIndex = cur.next().data("slick-index");
-      $(`.testi-nav .tab-btn[data-goto="${currentIndex}"]`).addClass("active");
-      $(`.testi-nav .tab-btn[data-goto="${nextIndex}"]`).addClass("next");
-      $(`.testi-nav .tab-btn[data-goto="${prevIndex}"]`).addClass("prev");
-      slick.$prevIndex = prevIndex;
-      slick.$nextIndex = nextIndex;
+    $(window).on('resize', function () {
+        navResponsive();
     })
-    .on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-      var cur = $(slick.$slides[nextSlide]);
-      var currentIndex = cur.data("slick-index");
-      $(`.testi-nav .tab-btn[data-goto="${slick.$prevIndex}"]`).removeClass(
-        "prev"
-      );
-      $(`.testi-nav .tab-btn[data-goto="${slick.$nextIndex}"]`).removeClass(
-        "next"
-      );
-      var prevIndex = cur.prev().data("slick-index");
-      var nextIndex = cur.next().data("slick-index");
-      $(`.testi-nav .tab-btn[data-goto="${nextIndex}"]`).addClass("next");
-      $(`.testi-nav .tab-btn[data-goto="${prevIndex}"]`).addClass("prev");
-      slick.$prevIndex = prevIndex;
-      slick.$nextIndex = nextIndex;
-      $(`.testi-nav .tab-btn[data-goto="${currentIndex}"]`)
-        .addClass("active")
-        .removeClass("next")
-        .removeClass("prev")
-        .siblings()
-        .removeClass("active");
-    });
 
-  testiSlide.slick({
-    speed: 1000,
-    arrows: false,
-    fade: true,
-    dots: false,
-    autoplay: true,
-    slidesPerRow: 1,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    infinite: false, // Infinite should set be false
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          dots: false,
-        },
-      },
-    ],
-  });
+    $('.menu .dropdown-menu').each(function() {
+        var children = $(this).children('.dropdown').length;
+        $(this).addClass('children-'+children);
+    })
 
-  /*----------- 15. Team Toggle ----------*/
-  $(".team-style1 .share-btn").on("click", function () {
-    $(this).prev(".team-social").slideToggle();
-    $(this).toggleClass("active");
-    var siblingShareBtn = $(this)
-      .closest(".team-column")
-      .siblings()
-      .find(".team-style1 .share-btn.active");
-    siblingShareBtn.prev(".team-social").slideUp();
-    siblingShareBtn.removeClass("active");
-  });
+    $('.menu .nav-item.dropdown').each(function() {
+        var children = $(this).children('.nav-link');
+        children.addClass('prevent');
+    })
 
-  /*----------- 16. isotop ----------*/
-  var gridfilter = $(".filter-item1");
-  if (gridfilter.length) {
-    $(".filter-item1").imagesLoaded(function () {
-      $(".filter-menu-active").on("click", "button", function () {
-        var filterValue = $(this).attr("data-filter");
-        $grid.isotope({
-          filter: filterValue,
-        });
-      });
-      var $grid = $(".filter-item1").isotope({
-        itemSelector: ".filter-item",
-        percentPosition: true,
-        masonry: {
-          columnWidth: ".filter-item",
-        },
-      });
-    });
-  }
+    $(document).on('click', '#menu .nav-item .nav-link', function (e) {
 
-  $(".filter-menu button").on("click", function (event) {
-    event.preventDefault();
-    if (!$(this).hasClass("active")) {
-      // If the clicked button does not have the 'active' class, we add it to the clicked button and remove it from its siblings.
-      $(this).addClass("active").siblings(".active").removeClass("active");
-    }
-  });
-
-  /*----------- 17. package tab ----------*/
-
-  const tabs = document.querySelectorAll("[data-tab-target]");
-  const tabContents = document.querySelectorAll("[data-tab-content]");
-
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      const target = document.querySelector(tab.dataset.tabTarget);
-      tabContents.forEach((tabContent) => {
-        tabContent.classList.remove("active");
-      });
-      tabs.forEach((tab) => {
-        tab.classList.remove("active");
-      });
-      tab.classList.add("active");
-      target.classList.add("active");
-    });
-  });
-
-  /*----------- 18. Ajax Contact Form ----------*/
-  var form = ".ajax-contact";
-  var invalidCls = "is-invalid";
-  var $email = '[name="email"]';
-  var $validation =
-    '[name="firstname"],[name="lastname"],[name="email"],[name="number"],[name="message"]'; // Must be use (,) without any space
-  var formMessages = $(".form-messages");
-
-  function sendContact() {
-    var formData = $(form).serialize();
-    var valid;
-    valid = validateContact();
-    if (valid) {
-      jQuery
-        .ajax({
-          url: $(form).attr("action"),
-          data: formData,
-          type: "POST",
-        })
-        .done(function (response) {
-          // Make sure that the formMessages div has the 'success' class.
-          formMessages.removeClass("error");
-          formMessages.addClass("success");
-          // Set the message text.
-          formMessages.text(response);
-          // Clear the form.
-          $(form + ' input:not([type="submit"]),' + form + " textarea").val("");
-        })
-        .fail(function (data) {
-          // Make sure that the formMessages div has the 'error' class.
-          formMessages.removeClass("success");
-          formMessages.addClass("error");
-          // Set the message text.
-          if (data.responseText !== "") {
-            formMessages.html(data.responseText);
-          } else {
-            formMessages.html(
-              "Oops! An error occured and your message could not be sent."
-            );
-          }
-        });
-    }
-  }
-
-  function validateContact() {
-    var valid = true;
-    var formInput;
-
-    function unvalid($validation) {
-      $validation = $validation.split(",");
-      for (var i = 0; i < $validation.length; i++) {
-        formInput = form + " " + $validation[i];
-        if (!$(formInput).val()) {
-          $(formInput).addClass(invalidCls);
-          valid = false;
-        } else {
-          $(formInput).removeClass(invalidCls);
-          valid = true;
+        if($(this).hasClass('prevent')) {
+            e.preventDefault();
         }
-      }
+
+        var nav_link = $(this);
+
+        nav_link.next().toggleClass('show');
+
+        if(nav_link.hasClass('smooth-anchor')) {
+            $('#menu').modal('hide');
+        }
+    })
+})
+
+/*----------------------------------------------
+3. Navigation
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    'use strict';
+
+    var position = $(window).scrollTop();
+    var navbar   = $('.navbar');
+    var toTop    = $('#scroll-to-top');
+
+    $(document).ready(function() {
+        if (position > 0) {
+            navbar.addClass('navbar-sticky');
+        }
+        toTop.hide();
+    })
+
+    $(window).scroll(function () {
+
+        navbar.removeAttr('data-aos');
+        navbar.removeAttr('data-aos-delay');
+
+        var scroll = $(window).scrollTop();
+
+        if (!navbar.hasClass('relative')) {
+
+            // Down
+            if (scroll > position) {
+
+                navbar.addClass('navbar-sticky');
+
+                if(navbar.hasClass('navbar-fixed') || window.innerWidth <= 767) {
+                    navbar.removeClass('hidden').addClass('visible');
+
+                } else {
+
+                    if ($(window).scrollTop() >= window.innerHeight) {
+                        navbar.removeClass('visible').addClass('hidden');
+                    }
+                }                
+
+                toTop.fadeOut('fast');
+
+            // Up
+            } else {
+
+                if(!navbar.hasClass('navbar-no-fixed')) {
+                    navbar.removeClass('hidden').addClass('visible');
+                }
+
+                // Top
+                if ($(window).scrollTop() <= 100 && $('.navbar-holder').length == 0) {
+                    navbar.removeClass('navbar-sticky');
+
+                } else {                   
+
+                    if(!navbar.hasClass('navbar-no-fixed')) {
+                        navbar.addClass('visible');
+                    }
+                }
+
+                if (position >= window.innerHeight && window.innerWidth >= 767) {
+                    toTop.fadeIn('fast');
+
+                } else {
+                    toTop.fadeOut('fast');
+                }
+            }
+            position = scroll;
+        }
+    })
+
+    $('.nav-link').each(function() {
+
+        if(this.hasAttribute('href')) {
+            let href = $(this).attr('href');
+            if (href.length > 1 && href.indexOf('#') != -1) {
+                $(this).addClass('smooth-anchor');
+            }
+        }
+
+        let body = $('body');
+
+        if(this.hasAttribute('href') && ! body.hasClass('home')) {
+            let href = $(this).attr('href');
+            if (href.length > 1 && href.indexOf('#') != -1) {
+                $(this).removeClass('smooth-anchor');
+                $(this).attr('href', '/'+href);
+            }
+        }
+    })
+
+    $(document).on('click', '.smooth-anchor', function (e) {
+        e.preventDefault();
+
+        let href   = $(this).attr('href');
+        let target = $.attr(this, 'href');
+
+        if($(target).length > 0) {
+        
+            if (href.length > 1 && href.indexOf('#') != -1) {
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top
+                }, 500);
+            }
+        }
+    })
+
+    $('.dropdown-menu').each(function () {
+
+        let dropdown = $(this);
+
+        dropdown.hover(function () {
+            dropdown.parent().find('.nav-link').first().addClass('active');
+
+        }, function () {
+            dropdown.parent().find('.nav-link').first().removeClass('active');
+        })
+    })
+
+    if($('.navbar-holder').length > 0) {
+        $('.navbar').addClass('navbar-sticky');
+        $('.navbar-holder').css('min-height',$('.navbar-expand').outerHeight());
     }
-    unvalid($validation);
+})
 
-    if (
-      !$($email).val() ||
-      !$($email)
-        .val()
-        .match(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/)
-    ) {
-      $($email).addClass(invalidCls);
-      valid = false;
-    } else {
-      $($email).removeClass(invalidCls);
-      valid = true;
+/*----------------------------------------------
+4. Slides
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    setTimeout(function() {
+        $('.no-slider .left').addClass('init');
+        $('.no-slider .right').addClass('init');
+    }, 1200)
+
+    var animation = function(slider) {
+
+        let image = $(slider + ' .swiper-slide-active img');
+        let title = $(slider + ' .title');
+        let description = $(slider + ' .description');
+        let btn = $(slider + ' .btn');
+        let nav = $(slider + ' nav');
+
+        image.toggleClass('aos-animate');
+        title.toggleClass('aos-animate');
+        description.toggleClass('aos-animate');
+        btn.toggleClass('aos-animate');
+        nav.toggleClass('aos-animate');
+
+        setTimeout(function() {
+            image.toggleClass('aos-animate');
+            title.toggleClass('aos-animate');
+            description.toggleClass('aos-animate');
+            btn.toggleClass('aos-animate');
+            nav.toggleClass('aos-animate');
+
+            AOS.refresh();
+
+        }, 100)
+
+        if ($('.full-slider').hasClass('animation')) {
+
+            $('.full-slider .left').addClass('off');
+            $('.full-slider .left').removeClass('init');
+            $('.full-slider .right').addClass('off');
+            $('.full-slider .right').removeClass('init');
+
+            setTimeout(function() {
+                $('.full-slider .left').removeClass('off');
+                $('.full-slider .right').removeClass('off');
+            }, 200)
+
+            setTimeout(function() {
+                $('.full-slider .left').addClass('init');
+                $('.full-slider .right').addClass('init');
+            }, 1000)
+
+        } else {
+            $('.full-slider .left').addClass('init');
+            $('.full-slider .right').addClass('init');
+        }
     }
-    return valid;
-  }
 
-  $(form).on("submit", function (element) {
-    element.preventDefault();
-    sendContact();
-  });
+    var fullSlider = new Swiper('.full-slider', {
 
-  /*----------- 19. Magic HOver ----------*/
-  $(".media-style1").hover(function () {
-    $(".media-style1").removeClass("media-style1--active");
-    $(this).addClass("media-style1--active");
-  });
-})(jQuery);
+        autoplay: {
+            delay: 10000,
+        },
+        loop: false,
+        slidesPerView: 1,
+        spaceBetween: 0,
+        navigation: false,
+        pagination: {
+            el: '.full-slider .swiper-pagination',
+            clickable: true
+        },
+        keyboard: {
+            enabled: true,
+            onlyInViewport: false
+        },
+        on: {
+            init: function() {
+                animation('.full-slider');
+                let pagination = $('.full-slider .swiper-pagination');
+                pagination.hide();
+
+                setTimeout(function() {
+                    pagination.show();
+                }, 2000)
+
+            },
+            slideChange: function() {
+                animation('.full-slider')
+            },
+            sliderMove: function() {
+                let slider = $('.full-slider');
+                if (slider.hasClass('animation')) {
+                    $('.full-slider .swiper-slide-next .left').addClass('off')
+                    $('.full-slider .swiper-slide-next .right').addClass('off');
+                    $('.full-slider .swiper-slide-prev .left').addClass('off')
+                    $('.full-slider .swiper-slide-prev .right').addClass('off');
+                }
+            }
+        }
+    })
+
+    $('.mid-slider').each(function() {
+
+        if($(this).data('perview')) {
+            var midPerView = $(this).data('perview');
+        } else {
+            midPerView = 3;
+        }
+
+        if($(this).data('autoplay') && $(this).data('autoplay') == true) {
+            var midAutoPlay = { delay: 5000 };
+        } else {
+            midAutoPlay = false;
+        }
+
+        var midSlider = new Swiper(this, {
+
+            autoplay: midAutoPlay,
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            breakpoints: {
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                1023: {
+                    slidesPerView: midPerView,
+                    spaceBetween: 30
+                }
+            },
+            pagination: {
+                el: '.mid-slider .swiper-pagination',
+                clickable: true
+            }
+        })
+    })
+
+    $('.mid-slider-simple').each(function() {
+
+        if($(this).data('perview')) {
+            var midSimplePerView = $(this).data('perview');
+        } else {
+            midSimplePerView = 3;
+        }
+
+        if($(this).data('autoplay') && $(this).data('autoplay') == true) {
+            var midSimpleAutoPlay = { delay: 5000 };
+        } else {
+            midSimpleAutoPlay = false;
+        }
+
+        var midSliderSimple = new Swiper(this, {
+
+            autoplay: midSimpleAutoPlay,
+            loop: false,
+            centerInsufficientSlides: true,
+            slidesPerView: 1,
+            spaceBetween: 30,
+            breakpoints: {
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                1023: {
+                    slidesPerView: midSimplePerView,
+                    spaceBetween: 30
+                }
+            },
+            pagination: {
+                el: '.mid-slider-simple .swiper-pagination',
+                clickable: true
+            }
+        })
+    })
+
+    var minSlider = new Swiper('.min-slider', {
+        autoplay: {
+            delay: 5000,
+        },
+        loop: false,
+        centerInsufficientSlides: true,
+        slidesPerView: 2,
+        spaceBetween: 15,
+        breakpoints: {
+            424: {
+                slidesPerView: 2,
+                spaceBetween: 15
+            },
+            767: {
+                slidesPerView: 3,
+                spaceBetween: 15
+            },
+            1023: {
+                slidesPerView: 4,
+                spaceBetween: 15
+            },
+            1199: {
+                slidesPerView: 5,
+                spaceBetween: 15
+            }
+        },
+        pagination: false,
+    })
+
+    var noSlider = new Swiper('.no-slider', {
+
+        autoplay: false,
+        loop: false,
+        keyboard: false,
+        grabCursor: false,
+        allowTouchMove: false,
+        on: {
+            init: function() {
+                animation('.no-slider')
+            }
+        }
+    })
+})
+
+/*----------------------------------------------
+5. Particles
+----------------------------------------------*/
+
+jQuery(function($) {
+
+    'use strict';
+
+    function particles(type, ID) {
+
+        if(type === 'default') {
+            particlesJS(ID,{particles:{number:{value:80,density:{enable:!0,value_area:800}},color:{value:"#ffffff"},shape:{type:"circle",stroke:{width:0,color:"#000000"},polygon:{nb_sides:5},image:{src:"img/github.svg",width:100,height:100}},opacity:{value:.25,random:!1,anim:{enable:!1,speed:1,opacity_min:.1,sync:!1}},size:{value:5,random:!0,anim:{enable:!1,speed:40,size_min:.1,sync:!1}},line_linked:{enable:!0,distance:150,color:"#ffffff",opacity:.25,width:1},move:{enable:!0,speed:6,direction:"none",random:!1,straight:!1,out_mode:"out",attract:{enable:!1,rotateX:600,rotateY:1200}}},interactivity:{detect_on:"canvas",events:{onhover:{enable:0,mode:"repulse"},onclick:{enable:!0,mode:"push"},resize:!0},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:400,size:40,duration:2,opacity:8,speed:3},repulse:{distance:200},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:!0,config_demo:{hide_card:!1,background_color:"#b61924",background_image:"",background_position:"50% 50%",background_repeat:"no-repeat",background_size:"cover"}});
+        }
+
+        if(type === 'bubble') {
+            particlesJS(ID,{particles:{number:{value:6,density:{enable:!0,value_area:800}},color:{value:"#182c50"},shape:{type:"polygon",stroke:{width:0,color:"#000"},polygon:{nb_sides:6},image:{src:"img/github.svg",width:100,height:100}},opacity:{value:.3,random:!0,anim:{enable:!1,speed:1,opacity_min:.1,sync:!1}},size:{value:160,random:!1,anim:{enable:!0,speed:10,size_min:40,sync:!1}},line_linked:{enable:!1,distance:200,color:"#ffffff",opacity:1,width:2},move:{enable:!0,speed:8,direction:"none",random:!1,straight:!1,out_mode:"out",bounce:!1,attract:{enable:!1,rotateX:600,rotateY:1200}}},interactivity:{detect_on:"canvas",events:{onhover:{enable:!1,mode:"grab"},onclick:{enable:!1,mode:"push"},resize:!0},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:400,size:40,duration:2,opacity:8,speed:3},repulse:{distance:200,duration:.4},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:!0});
+        }
+
+        if(type === 'space') {
+            particlesJS(ID,{particles:{number:{value:160,density:{enable:!0,value_area:800}},color:{value:"#ffffff"},shape:{type:"circle",stroke:{width:0,color:"#000000"},polygon:{nb_sides:5},image:{src:"img/github.svg",width:100,height:100}},opacity:{value:1,random:!0,anim:{enable:!0,speed:1,opacity_min:0,sync:!1}},size:{value:3,random:!0,anim:{enable:!1,speed:4,size_min:.3,sync:!1}},line_linked:{enable:!1,distance:150,color:"#ffffff",opacity:.4,width:1},move:{enable:!0,speed:1,direction:"none",random:!0,straight:!1,out_mode:"out",bounce:!1,attract:{enable:!1,rotateX:600,rotateY:600}}},interactivity:{detect_on:"canvas",events:{onhover:{enable:!0,mode:"bubble"},onclick:{enable:!0,mode:"repulse"},resize:!0},modes:{grab:{distance:400,line_linked:{opacity:1}},bubble:{distance:250,size:0,duration:2,opacity:0,speed:3},repulse:{distance:400,duration:.4},push:{particles_nb:4},remove:{particles_nb:2}}},retina_detect:!0});
+        }
+    }
+
+    $('.particles').each(function() {
+
+        let type = $(this).data('particle');
+        let ID   = $(this).attr('id');
+
+        particles(type, ID);
+    })
+})
+
+/*----------------------------------------------
+6. Progress Bar
+----------------------------------------------*/
+
+jQuery(function($) {
+
+    'use strict';
+
+    function initCounter(section, item, duration) {
+
+        $(document).one('inview', item, function(event, inview) {
+
+            if (inview) {            
+    
+                $(item).each(function() {
+    
+                    var percent = $(this).data('percent');
+                    var pcolor  = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+                    var scolor  = getComputedStyle(document.documentElement).getPropertyValue('--secondary-color');
+    
+                    if ( $(section).hasClass('odd')) {
+                        var tmode = 'rgba(255, 255, 255, 0.075)';
+                    } else {
+                        var tmode = 'rgba(0, 0, 0, 0.075)';
+                    }
+
+                    if ( $(this).data('symbol') ) {                        
+                        var custom_symbol = $(this).data('symbol');
+                    } else {
+                        var custom_symbol = '%';
+                    }
+    
+                    if ( $(section).hasClass('preloader') || $(section).hasClass('skills')) {
+                        var symbol = '<i>'+custom_symbol+'</i>';
+                    } else {
+                        var symbol = '';
+                    }
+
+                    if(section == '.counter.funfacts') {
+                        var height = 70;
+                    } else {
+                        var height = 120;
+                    }
+    
+                    $(this).radialProgress({
+                        value: (percent / 100),
+                        size: height,
+                        thickness: 10,
+                        lineCap: 'butt',
+                        emptyFill: tmode,
+                        animation: { 
+                            duration: duration, 
+                            easing: "radialProgressEasing" 
+                        },
+                        fill: {
+                            gradient: [[pcolor, 0.1], [scolor, 1]], 
+                            gradientAngle: Math.PI / 4
+                        }
+                    }).on('radial-animation-progress', function(event, progress) {
+                        $(this).find('span').html(Math.round(percent * progress) + symbol);
+                    })
+                })
+            }
+        })
+    }
+    
+    let preloader = $('.preloader');
+    let preloader_timeout = ( preloader.data('timeout') - 300);
+
+    initCounter('.counter.preloader', '.counter.preloader .radial', preloader_timeout);
+    initCounter('.counter.funfacts', '.counter.funfacts .radial', 5000);
+    initCounter('.counter.skills', '.counter.skills .radial', 5000);
+})
+
+/*----------------------------------------------
+7. Shuffle
+----------------------------------------------*/
+
+jQuery(function ($) {
+    'use strict';
+
+    $('.filter-section').each(function(index) {
+        var count = index + 1;
+
+        $(this).find('.filter-items').removeClass('filter-items').addClass('filter-items-'+count);
+        $(this).find('.filter-item').removeClass('filter-item').addClass('filter-item-'+count);
+        $(this).find('.filter-sizer').removeClass('filter-sizer').addClass('filter-sizer-'+count);
+        $(this).find('.btn-filter-item').removeClass('btn-filter-item').addClass('btn-filter-item-'+count);
+                 
+        var Shuffle = window.Shuffle;
+        var defaultGroup = $(this).find('.btn-group').data('group-default');  
+        var Filter  = new Shuffle(document.querySelector('.filter-items-'+count), {
+            itemSelector: '.filter-item-'+count,
+            sizer: '.filter-sizer-'+count,
+            buffer: 1,
+            group: defaultGroup
+        })
+    
+        $('.btn-filter-item-'+count).on('change', function (e) {    
+            var input = e.currentTarget;            
+            if (input.checked) {
+                Filter.filter(input.value);
+            }
+        })
+    })
+})
+
+/*----------------------------------------------
+8. Sign and Register Form
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    'use strict';
+
+    $(document).on('click', 'a[data-target="#register"]', function() { 
+        $('#sign').modal('hide');
+    })
+
+    $(document).on('click', 'a[data-target="#sign"]', function() { 
+        $('#register').modal('hide');
+    })
+
+})
+
+/*----------------------------------------------
+9. Multi-Step Form
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    'use strict';
+
+    var timer;
+
+    $(document).on('keyup', '#leverage-form .field-email', function() {
+
+        clearTimeout(timer);
+
+        let url     = $('#leverage-form').attr('action');
+        let email   = $('#leverage-form .field-email').val();
+        let wpnonce = $('#leverage_form_wpnonce').val();
+        let data    = { 
+            'email':email, 
+            'step':'check_email', 
+            'action':'leverage_contact_form', 
+            'section':'leverage_form', 
+            'leverage_form_wpnonce':wpnonce
+        };
+
+        $.valid_email = false;
+
+        timer = setTimeout(function() {
+
+            $.post(url, data, function(response) {
+                try {
+                    JSON.parse(response);
+                    var obj = JSON.parse(response);
+                    
+                    if(obj.status == 'invalid' && obj.fields.email == true) {
+                        $('#leverage-form .field-email').removeClass('valid').addClass('invalid');
+    
+                    } else {
+                        $('#leverage-form .field-email').removeClass('invalid').addClass('valid');
+                        $.valid_email = true;
+                    }
+    
+                } catch (e) {
+                    alert('Sorry. We are experiencing problems with our server. Come back later to send your message.');
+                }
+            })
+        }, 1000)
+    })
+
+    var current_fs, next_fs, previous_fs;
+    var left, opacity, scale;
+    var animating;
+
+    function next(button, group, show, hide) {
+
+        $(document).on('click', button, function () {
+
+            $(group + ' .form-control').each(function () {
+                var minlength = $(this).data('minlength');
+
+                if ($(this).val() == null || $(this).val() == '') {
+                    var value = 0;
+
+                } else {
+                    var value = $(this).val().length;
+                }
+
+                if (Number(minlength) <= Number(value)) {
+                    $(this).removeClass('invalid').addClass('valid');
+
+                } else {
+                    $(this).removeClass('valid').addClass('invalid');
+                }
+
+                if($.valid_email === false) {
+                    $('#leverage-form .field-email').removeClass('valid').addClass('invalid');
+                }
+            })
+
+            var checkbox_row = $('.checkbox-row');
+
+            checkbox_row.each(function() {
+
+                var checkbox_field = $(this).find('.form-control');
+
+                if(checkbox_field.is(':checked')) {
+                    $(this).removeClass('no-checked').addClass('checked');
+                    checkbox_field.removeClass('invalid').addClass('valid');
+
+                } else {
+                    $(this).removeClass('checked').addClass('no-checked');
+                    checkbox_field.removeClass('valid').addClass('invalid');
+                }
+            })
+
+            let field = $(group).find('.form-control').length;
+            let valid = $(group).find('.valid').length;
+
+            if(!$('#leverage-form .field-email').length) {
+                $.valid_email = true;
+            }
+
+            if (field == valid && $.valid_email == true) {
+
+                if($('.multi-step-form').data('steps') == 1) {
+                    var sendButton = '#step-next-1';
+
+                } else if($('.multi-step-form').data('steps') == 2) {
+                    var sendButton = '#step-next-2';
+
+                } else {
+                    var sendButton = '#step-next-3';
+                }
+
+                if (button == sendButton) {
+                    $('.progressbar').addClass('complete');
+                }
+
+                if (button == sendButton) {
+
+                    let height = $('.multi-step-form .success.message').parents().eq(1).height();
+                    let message = $('.multi-step-form .success.message');                            
+                    message.css('height', height);  
+                    message.addClass('active'); 
+                    
+                    $('.form-content').hide();
+                    
+                    $('.multi-step-form').submit();
+                }
+
+                if (animating) return false;
+
+                animating = true;
+
+                current_fs = $(this).parents().eq(1);
+                next_fs = $(this).parents().eq(1).next();
+                $('.multi-step-form .progressbar li').eq($('fieldset').index(next_fs)).addClass('active');
+                next_fs.show();
+
+                current_fs.animate({
+                    opacity: 0
+                }, {
+                    step: function (now, mx) {
+                        scale = 1 - (1 - now) * 0.2;
+                        left = (now * 50) + '%';
+                        opacity = 1 - now;
+
+                        current_fs.css({
+                            'transform': 'scale(' + scale + ')',
+                            'position': 'absolute'
+                        })
+
+                        next_fs.css({
+                            'left': left,
+                            'opacity': opacity
+                        })
+                    },
+                    duration: 600,
+                    complete: function () {
+                        current_fs.hide();
+                        animating = false;
+                    },
+                    easing: 'easeInOutBack'
+                })
+
+                $(hide).hide();
+                $(show).show();
+            }
+        })
+    }   
+
+    function submissionDone() {                
+        if(leverage_form.hasClass('redirect-sending')) {
+            window.location.href = leverage_form.data('redirect');
+        } else {     
+            let wait = $('.multi-step-form .success.message .wait');
+            let done = $('.multi-step-form .success.message .done');
+
+            wait.hide();
+            done.show();            
+        } 
+    }
+
+    // Progressbar
+    $('.multi-step-form .progressbar li').first().addClass('active');
+
+    $('.multi-step-form .progressbar li').each(function(index) {
+        $('.multi-step-form').attr('data-steps', (index+1));
+    })
+
+    // Step Image [ID]
+    $('.multi-step-form .step-image').each(function(index) {
+        $(this).attr('id', 'step-image-'+(index+1));
+
+        if(index) {
+            $('#step-image-2, #step-image-3, #step-image-4').hide(); 
+        }
+    })
+
+    // Step Title [ID]
+    $('.multi-step-form .step-title').each(function(index) {
+        $(this).attr('id', 'step-title-'+(index+1));
+
+        if(index) {
+            $('#step-title-2, #step-title-3').hide(); 
+        }
+    })
+
+    // Step Group [ID]
+    $('.multi-step-form .step-group').each(function(index) {
+        $(this).attr('id', 'step-group-'+(index+1));
+    })
+
+    // Step Next [ID]
+    $('.multi-step-form .step-next').each(function(index) {
+        $(this).attr('id', 'step-next-'+(index+1));
+    })
+    
+    // Step Prev [ID]
+    $('.multi-step-form .step-prev').each(function(index) {
+        $(this).attr('id', 'step-prev-'+(index+2));
+    })
+
+    next('#step-next-1', '#step-group-1', '#step-image-2, #step-title-2', '#step-image-1, #step-title-1');
+    next('#step-next-2', '#step-group-2', '#step-image-3, #step-title-3', '#step-image-2, #step-title-2');
+    next('#step-next-3', '#step-group-3', '#step-image-4', '#step-image-3');
+
+    function prev(button, show, hide) {
+
+        $(document).on('click', button, function () {
+
+            if (animating) return false;
+            animating = true;
+
+            current_fs = $(this).parents().eq(1);
+            previous_fs = $(this).parents().eq(1).prev();
+
+            $('.multi-step-form .progressbar li').eq($('fieldset').index(current_fs)).removeClass('active');
+
+            previous_fs.show();
+            current_fs.animate({
+                opacity: 0
+            }, {
+                step: function (now, mx) {
+
+                    scale = 0.8 + (1 - now) * 0.2;
+                    left = ((1 - now) * 50) + '%';
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'left': left
+                    })
+
+                    previous_fs.css({
+                        'transform': 'scale(' + scale + ')',
+                        'opacity': opacity
+                    })
+                },
+                duration: 600,
+                complete: function () {
+
+                    current_fs.hide();
+                    animating = false;
+                },
+                easing: 'easeInOutBack'
+            })
+
+            $(hide).hide();
+            $(show).show();
+
+            if (button == '#step-prev-3') {
+                $('.multi-step-form .progressbar').removeClass('complete');
+            }
+        })
+    }
+
+    prev('#step-prev-2', '#step-image-1, #step-title-1', '#step-image-2, #step-title-2');
+    prev('#step-prev-3', '#step-image-2, #step-title-2', '#step-image-3, #step-title-3');
+
+    // Submission
+    var leverage_form     = $('#leverage-form');
+
+    leverage_form.submit(function(e) {
+        e.preventDefault();
+
+        if ($('input[name="reCAPTCHA"]').length) {
+            let reCAPTCHA = $('input[name="reCAPTCHA"]');
+
+            grecaptcha.ready(function() {
+                grecaptcha.execute(reCAPTCHA.data('key'), { action: "create_comment" }).then(function(token) { 
+                    reCAPTCHA.val(token); 
+                }) 
+            })
+        }
+
+        var url = leverage_form.attr('action');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: leverage_form.serialize(),
+            success: function() {                
+                submissionDone();
+            }
+        })
+    })
+})
+
+/*----------------------------------------------
+10. Simple Form
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    'use strict';
+
+    function sendForm(ID) {
+
+        var form  = $(ID);
+        var input = $(ID+' .form-control')
+        var btn   = $(ID+' .btn');
+        var alert = $(ID+' .form-alert');
+
+        alert.hide();
+
+        $(document).on('click', ID+' .btn', function() {
+            $(this).addClass('effect-motion-bg');
+            form.submit();
+        })
+
+        form.submit(function(e) {
+            e.preventDefault();
+
+            if ($('input[name="reCAPTCHA"]').length) {
+                let reCAPTCHA = $('input[name="reCAPTCHA"]');
+    
+                grecaptcha.ready(function() {
+                    grecaptcha.execute(reCAPTCHA.data('key'), { action: "create_comment" }).then(function(token) { 
+                        reCAPTCHA.val(token); 
+                    }) 
+                })
+            }
+
+            var url = form.attr('action');
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form.serialize(),
+                success: function(response) {                    
+
+                    try {
+                        JSON.parse(response);
+                        var obj = JSON.parse(response);
+
+                        if (obj.status == 'success') {
+                            setTimeout(function() {
+                                btn.removeClass('effect-motion-bg');
+                                input.val('').removeClass('invalid').removeClass('valid');
+                                alert.text(obj.info).removeClass('invalid').addClass('valid').fadeIn();
+                            }, 1200);
+
+                        } else if(obj.status == 'invalid') {
+                            setTimeout(function() {
+                                btn.removeClass('effect-motion-bg');
+                                alert.text(obj.info).removeClass('valid').addClass('invalid').fadeIn();
+                            }, 1200);
+
+                            input.each(function() {
+                                let input_name = $(this).attr('name');                     
+
+                                if(obj.fields[input_name] == true) {
+                                    $(ID+' .field-'+input_name).removeClass('valid').addClass('invalid'); 
+                                } else { 
+                                    $(ID+' .field-'+input_name).removeClass('invalid').addClass('valid');
+                                }
+                            })
+                        } else {
+                            btn.removeClass('effect-motion-bg');
+                            input.val('').removeClass('invalid').removeClass('valid');
+                            alert.text(obj.info).removeClass('valid').addClass('invalid').fadeIn();                        
+                        
+                        } 
+
+                    } catch (e) {
+                        btn.removeClass('effect-motion-bg');
+                        input.val('').removeClass('invalid').removeClass('valid');
+                        alert.text('Sorry. We were unable to send your message.').removeClass('valid').addClass('invalid').fadeIn();
+                    }
+                }
+            })
+        })
+    }
+
+    sendForm('#leverage-simple-form');
+    sendForm('#leverage-subscribe');
+})
+
+/*----------------------------------------------
+11. Recaptcha
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    'use strict';
+
+    if ($('input[name="reCAPTCHA"]').length) {
+
+     let siteKey = "6Lf-NwEVAAAAAPo_wwOYxFW18D9_EKvwxJxeyUx7"; // Put your site key here
+     
+     if(siteKey) { 
+         $('input[name="reCAPTCHA"]').attr("data-key", siteKey); 
+         grecaptcha.ready(function() { 
+             grecaptcha.execute(siteKey, { action: "create_comment" }).then(function(token) { 
+                 $('input[name="reCAPTCHA"]').val(token); 
+                }) 
+            }) 
+        } 
+    }
+})
+
+/*----------------------------------------------
+12. Cookie Notice
+----------------------------------------------*/
+
+jQuery(function ($) {
+
+    'use strict';
+
+    let cookieNotice = true;
+
+    if(cookieNotice) {
+
+        // Translate
+        gdprCookieNoticeLocales.en = {
+            description: 'We use cookies to offer you a better browsing experience, personalise content and ads, to provide social media features and to analyse our traffic. Read about how we use cookies and how you can control them by clicking Cookie Settings. You consent to our cookies if you continue to use this website.',
+            settings: 'Cookie settings',
+            accept: 'Accept cookies',
+            statement: 'Our cookie statement',
+            save: 'Save settings',
+            always_on: 'Always on',
+            cookie_essential_title: 'Essential website cookies',
+            cookie_essential_desc: 'Necessary cookies help make a website usable by enabling basic functions like page navigation and access to secure areas of the website. The website cannot function properly without these cookies.',
+            cookie_performance_title: 'Performance cookies',
+            cookie_performance_desc: 'These cookies are used to enhance the performance and functionality of our websites but are non-essential to their use. For example it stores your preferred language or the region that you are in.',
+            cookie_analytics_title: 'Analytics cookies',
+            cookie_analytics_desc: 'We use analytics cookies to help us measure how users interact with website content, which helps us customize our websites and application for you in order to enhance your experience.',
+            cookie_marketing_title: 'Marketing cookies',
+            cookie_marketing_desc: 'These cookies are used to make advertising messages more relevant to you and your interests. The intention is to display ads that are relevant and engaging for the individual user and thereby more valuable for publishers and third party advertisers.'
+        }
+
+        gdprCookieNotice({
+            locale: 'en', // This is the default value
+            timeout: 2000, // Time until the cookie bar appears
+            expiration: 30, // This is the default value, in days
+            domain: window.location.hostname, // If you run the same cookie notice on all subdomains, define the main domain starting with a .
+            implicit: true, // Accept cookies on page scroll automatically
+            statement: 'https://leverage.codings.dev', // Link to your cookie statement page
+            performance: ['JSESSIONID'], // Cookies in the performance category.
+            analytics: ['ga'], // Cookies in the analytics category.
+            marketing: ['SSID'] // Cookies in the marketing category.
+        })
+    }
+})
