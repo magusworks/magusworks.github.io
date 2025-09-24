@@ -1003,7 +1003,7 @@ input[type=color] {
   width: 480px;
   bottom: 0;
   box-shadow: 0 16px -32px 0 rgba(0, 0, 0, 0.8);
-  background-color: var(--tv-heading-primary);
+  background-color: #d7e6f2;
   z-index: 9999;
   padding: 50px;
   scrollbar-width: none;
@@ -1142,7 +1142,7 @@ input[type=color] {
   }
 }
 .itoffcanvas__text p {
-  color: #ddd;
+  color: #202121;
   font-size: 18px;
 }
 .itoffcanvas__info {
@@ -1151,7 +1151,7 @@ input[type=color] {
   margin-bottom: 20px;
 }
 .itoffcanvas__info .offcanva-title {
-  color: var(--tv-common-white);
+  color: #202121;
   margin: 30px 0 40px 0;
   font-size: 20px;
   font-weight: 600;
@@ -1160,7 +1160,7 @@ input[type=color] {
   height: 50px;
   width: 50px;
   background-color: var(--tv-theme-1);
-  color: var(--tv-common-white);
+  color: #202121;
   display: inline-block;
   text-align: center;
   line-height: 50px;
@@ -1171,13 +1171,13 @@ input[type=color] {
 }
 .itoffcanvas__info-address span {
   display: block;
-  color: rgba(255, 255, 255, 0.6392156863);
+  color: rgba(5, 5, 5, 0.639);
   font-size: 16px;
   font-weight: 400;
 }
 .itoffcanvas__info-address a {
   display: block;
-  color: var(--tv-common-white);
+  color: #202121;
   font-size: 18px;
   font-weight: 600;
   transition: 0.3s;
@@ -8042,6 +8042,7 @@ body .ui-tooltip {
   transition: 0.3s all;
   position: relative;
   border: 1px solid transparent;
+  
 }
 .single-service-item:hover {
   border: 1px solid var(--tv-theme-1);
@@ -8210,7 +8211,7 @@ span.service-icon {
   margin-bottom: 36px;
 }
 .tv-single-service .tv-widget-content .widget-contact-wrap {
-  gap: 18px;
+  gap: 18px; word-wrap: break-word;
 }
 .tv-single-service .tv-widget-content .widget-contact-wrap .icon i {
   height: 60px;
@@ -8225,10 +8226,11 @@ span.service-icon {
   margin-bottom: 10px;
 }
 .tv-single-service .tv-widget-content .widget-contact-wrap .contact-info h5 {
-  margin: 0;
+  margin: 0; word-wrap: break-word; font-size:16px;
 }
 .tv-single-service .tv-widget-content .widget-contact-wrap .contact-info h5 a {
   color: var(--tv-heading-primary);
+  word-wrap: break-word;
 }
 .tv-single-service .tv-blog-list-wrap {
   margin-right: 0;
