@@ -107,11 +107,11 @@ File Name: C:\Downloaded Web Sites\wealthmax.co.uk\s\urbanist\v18\L0x-DF02iFML4h
 Content Type: font/woff2
 
 Uri: https://px4.ads.linkedin.com/collect/?pid=8439332&fmt=gif&liSync=true&e_ipv6=AQJmhS47giReHwAAAZ1yewjY3R1XarYjrQaPcqkx5aslBjEwMAnZMJL3mbyBALtxDZNumiN00QsbQo5oRPun1FG0duQN2s_C
-File Name: C:\Downloaded Web Sites\wealthmax.co.uk\collect\index.htm
+File Name: C:\Downloaded Web Sites\wealthmax.co.uk\collect\index.html
 Content Type: image/gif
 
 Uri: https://wealthmax.co.uk/
-File Name: C:\Downloaded Web Sites\wealthmax.co.uk\index.htm
+File Name: C:\Downloaded Web Sites\wealthmax.co.uk\index.html
 Content Type: text/html
 
 Uri: https://wealthmax.co.uk/a-lion/lion.png
@@ -474,7 +474,7 @@ Uri: https://wealthmax.co.uk/fa-v4compatibility.8995e4d2c3a1aa41.woff2
 File Name: C:\Downloaded Web Sites\wealthmax.co.uk\fa-v4compatibility.8995e4d2c3a1aa41.woff2
 Content Type: font/woff2
 
-Uri: https://wealthmax.co.uk/footer/wealthLogo.svg.png
+Uri: https://wealthmax.co.uk/footer/gfa-logo-footer.png
 File Name: C:\Downloaded Web Sites\wealthmax.co.uk\footer\wealthLogo.svg.png
 Content Type: image/png
 
@@ -1094,7 +1094,7 @@ Uri: https://wealthmax.co.uk/willsplanning/top.png
 File Name: C:\Downloaded Web Sites\wealthmax.co.uk\willsplanning\top.png
 Content Type: image/png
 
-Uri: https://wealthmax.co.uk/willsplanning/wealthmaxlogo.svg
+Uri: https://wealthmax.co.uk/willsplanning/gfa-logo-small.png
 File Name: C:\Downloaded Web Sites\wealthmax.co.uk\willsplanning\wealthmaxlogo.svg
 Content Type: image/svg+xml
 
