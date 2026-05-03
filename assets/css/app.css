@@ -3724,6 +3724,7 @@ a.white-color {
 
 .luminix-list-icon-icon2 {
   flex-shrink: 0;
+  width: 64px;
 }
 
 @media (max-width: 575px) {
