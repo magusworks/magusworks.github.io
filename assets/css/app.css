@@ -9077,7 +9077,7 @@ textarea::placeholder {
   top: 0;
   left: 0;
   position: absolute;
-  background: rgb(165, 56, 96, 0.6);
+  background: rgb(165, 56, 96, 0.7);
 }
 
 @media (max-width: 1199px) {
