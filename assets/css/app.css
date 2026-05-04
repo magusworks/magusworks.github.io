@@ -6854,7 +6854,8 @@ blockquote img {
 
 .luminix-about-thumb2 {
   position: relative;
-  text-align: left;
+  text-align: right;
+  margin-right: 35px;
 }
 
 @media (max-width: 1399px) {
