@@ -3470,7 +3470,7 @@ a.white-color {
   font-size: 21px;
   line-height: 30px;
   margin-bottom: 24px;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-career-wrap.hovered {
@@ -3517,7 +3517,7 @@ a.white-color {
 }
 
 .luminix-career-single-content p {
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-career-single-data {
@@ -3745,7 +3745,7 @@ a.white-color {
 .luminix-list-icon-data p {
   font-size: 16px;
   line-height: 24px;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-list-icon-btn path {
@@ -4293,7 +4293,7 @@ a.white-color {
 .luminix-t-content p {
   font-size: 21px;
   margin-bottom: 0;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-t-author {
@@ -4307,7 +4307,7 @@ a.white-color {
 }
 
 .luminix-t-author-data p {
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-t-wrap2 {
@@ -4333,7 +4333,7 @@ a.white-color {
 .luminix-t-content2 p {
   font-size: 21px;
   line-height: 30px;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-t-author2 {
@@ -4351,7 +4351,7 @@ a.white-color {
 .luminix-t-author2-data2 p {
   font-size: 16px;
   line-height: 24px;
-  color: var(--heading-color);
+  color: #1c1c1c;
   text-align: left;
 }
 
@@ -4450,7 +4450,7 @@ a.white-color {
 .luminix-counter-item p {
   padding-top: 12px;
   font-weight: 600;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 @media (max-width: 767px) {
@@ -5187,7 +5187,7 @@ img.plasicon {
 }
 
 .luminix-team-d-contact-data p {
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-team-d-content h2 {
@@ -5214,7 +5214,7 @@ img.plasicon {
 }
 
 .luminix-team-d-skill-wrap p {
-  color: var(--heading-color);
+  color: #1c1c1c;
   margin-bottom: 30px;
   font-size: 21px;
   line-height: 30px;
@@ -6291,7 +6291,7 @@ blockquote img {
 }
 
 .luminix-service-d-data p {
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-service-d-content {
@@ -7134,7 +7134,7 @@ blockquote img {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .luminix-about-career-thumb {
@@ -7261,7 +7261,7 @@ blockquote img {
 
 .text {
   margin-bottom: 24px;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .text3 {
@@ -7287,13 +7287,13 @@ blockquote img {
 .text4 {
   margin: 0;
   padding-bottom: 24px;
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 .text5 {
   margin: 0;
   padding-bottom: 30px;
-  color: var(--heading-color);
+  color: #1c1c1c;
   border-bottom: 1px solid rgba(0, 26, 61, 0.1019607843);
   margin-bottom: 30px;
   padding-right: 50px;
@@ -7333,7 +7333,7 @@ textarea {
   width: 100%;
   height: 60px;
   font-weight: 400;
-  color: var(--heading-color);
+  color: #1c1c1c;
   border-radius: 0;
   background-color: transparent;
   padding: 15px 0;
@@ -7416,7 +7416,7 @@ textarea::placeholder {
 }
 
 .luminix-header-search-box p {
-  color: var(--heading-color);
+  color: #1c1c1c;
 }
 
 button#header-search {
