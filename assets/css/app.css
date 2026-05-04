@@ -5,14 +5,14 @@
 
 **/
 :root {
-  --heading-color: #1C1C1C;
+  --heading-color: #03354c;
   --body-color: #4D5B68;
-  --accent-color: #5D2036;
-  --accent-color2: #a53860;
+  --accent-color: #BD0000;
+  --accent-color2: #D40000;
   --white-color: #ffffff;
   --white-bg: #ffffff;
-  --accent-bg: #B33D68;
-  --accent-bg2: #a53860;
+  --accent-bg: #EB0000;
+  --accent-bg2: #FF0303;
   --accent-bg3: #0256FE;
   --light-color: #F7F7F7;
   --light-color2: #2D374A;
