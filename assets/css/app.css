@@ -6794,7 +6794,7 @@ blockquote img {
 
 @media (max-width: 991px) {
   .luminix-about-thumb {
-    text-align: center;
+    text-align: right;
     padding-bottom: 40px;
   }
 }
